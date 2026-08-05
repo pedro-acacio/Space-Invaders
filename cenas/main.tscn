@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpwi3odwp8bj8"]
+
+[ext_resource type="Script" uid="uid://b1i5pulolvalp" path="res://cenas/main.gd" id="1_5wwvk"]
+[ext_resource type="PackedScene" uid="uid://bnp0h1pturya8" path="res://cenas/jesus.tscn" id="1_t4ukd"]
+[ext_resource type="PackedScene" uid="uid://budrcrireqb" path="res://cenas/djabo.tscn" id="2_b30p5"]
+[ext_resource type="PackedScene" uid="uid://tenp3pavho77" path="res://cenas/demonios.tscn" id="3_5wwvk"]
+[ext_resource type="FontFile" uid="uid://bsgsv0hasq6gr" path="res://fonts/atari-classic-font/AtariClassic-gry3.ttf" id="4_b30p5"]
+[ext_resource type="Script" uid="uid://cjmxgkos8tcj0" path="res://cenas/area_game_over.gd" id="6_bhvw8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8342"]
+size = Vector2(254, 19)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_5wwvk")
+
+[node name="Jesus" parent="." instance=ExtResource("1_t4ukd")]
+
+[node name="Djabo" parent="." instance=ExtResource("2_b30p5")]
+
+[node name="Demonios" parent="." instance=ExtResource("3_5wwvk")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 55.0
+grow_horizontal = 2
+
+[node name="TituloPontos" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_b30p5")
+theme_override_font_sizes/font_size = 11
+text = "Pontos:"
+horizontal_alignment = 1
+
+[node name="LabelPontos" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_b30p5")
+theme_override_font_sizes/font_size = 11
+text = "0"
+horizontal_alignment = 1
+
+[node name="Bloco" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Bloco"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bloco"]
+
+[node name="AreaGameOver" type="Area2D" parent="." groups=["fogos"]]
+script = ExtResource("6_bhvw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaGameOver"]
+position = Vector2(127, 267)
+shape = SubResource("RectangleShape2D_l8342")
+metadata/_edit_group_ = true
+
+[connection signal="area_entered" from="AreaGameOver" to="AreaGameOver" method="_on_area_entered"]

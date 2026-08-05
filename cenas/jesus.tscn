@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://bnp0h1pturya8"]
+
+[ext_resource type="Script" uid="uid://ct56q4rwqsdh4" path="res://jesus.gd" id="1_daoay"]
+[ext_resource type="Texture2D" uid="uid://dpcrjcmnhipsp" path="res://Sprites/jesus3.png" id="2_8wb43"]
+[ext_resource type="AudioStream" uid="uid://ciwcpiqa1sncq" path="res://sfx/thekalaitchova.wav" id="3_8wb43"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhvw8"]
+size = Vector2(28.5, 31.5)
+
+[sub_resource type="Animation" id="Animation_37hpl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8wb43"]
+resource_name = "destruido"
+length = 0.7
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"eliminado"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_nda6f"]
+resource_name = "vivo"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e1wjk"]
+_data = {
+&"RESET": SubResource("Animation_37hpl"),
+&"destruido": SubResource("Animation_8wb43"),
+&"vivo": SubResource("Animation_nda6f")
+}
+
+[node name="Jesus" type="CharacterBody2D" groups=["tanque"]]
+position = Vector2(129, 220)
+script = ExtResource("1_daoay")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["tanque"]]
+scale = Vector2(0.0266702, 0.0234906)
+texture = ExtResource("2_8wb43")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bhvw8")
+
+[node name="MiraDaCruz" type="Marker2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="timerDisparo" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_8wb43")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_e1wjk")
+}
+autoplay = "vivo"
+
+[connection signal="timeout" from="timerDisparo" to="." method="_on_timer_disparo_timeout"]

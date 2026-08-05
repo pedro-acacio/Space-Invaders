@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://budrcrireqb"]
+
+[ext_resource type="Texture2D" uid="uid://bl4gqfply0tun" path="res://Sprites/spritesheet_aligned.png" id="1_elmsw"]
+[ext_resource type="Script" uid="uid://c74dnrdatysri" path="res://cenas/djabo.gd" id="1_jguoj"]
+[ext_resource type="AudioStream" uid="uid://blmqb7318vgcb" path="res://sfx/aiiiii.wav" id="3_tmm0o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8342"]
+size = Vector2(245, 264)
+
+[sub_resource type="Animation" id="Animation_jdavq"]
+resource_name = "Destroy"
+step = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.933333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"elimination"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_v1d1r"]
+resource_name = "Lives"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_1yycb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhipe"]
+_data = {
+&"Destroy": SubResource("Animation_jdavq"),
+&"Lives": SubResource("Animation_v1d1r"),
+&"RESET": SubResource("Animation_1yycb")
+}
+
+[node name="Djabo" type="CharacterBody2D" groups=["demonios"]]
+position = Vector2(1, -22)
+scale = Vector2(0.08, 0.08)
+script = ExtResource("1_jguoj")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(108.928, 135.485)
+scale = Vector2(0.1, 0.103)
+texture = ExtResource("1_elmsw")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(108.5, 134)
+shape = SubResource("RectangleShape2D_l8342")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["aliens"]]
+libraries = {
+&"": SubResource("AnimationLibrary_vhipe")
+}
+
+[node name="TimerMovimento" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(100, 237.5)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tmm0o")
+
+[connection signal="timeout" from="TimerMovimento" to="." method="_on_timer_movimento_timeout"]

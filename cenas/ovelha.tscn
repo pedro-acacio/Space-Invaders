@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtgt3hwj2gyvi"]
+
+[ext_resource type="Texture2D" uid="uid://n50f0g6edo7x" path="res://Sprites/ovelhas.png" id="1_kohqg"]
+[ext_resource type="Script" uid="uid://bk8cg87k1yd5s" path="res://cenas/ovelha.gd" id="1_ogw6h"]
+[ext_resource type="AudioStream" uid="uid://dcs050pjsahck" path="res://sfx/ohgloria.wav" id="3_gom8l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kohqg"]
+size = Vector2(951.5, 925.5)
+
+[sub_resource type="Animation" id="Animation_gom8l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ogw6h"]
+resource_name = "pecador"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_036oi"]
+resource_name = "santo"
+step = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aswrh"]
+_data = {
+&"RESET": SubResource("Animation_gom8l"),
+&"pecador": SubResource("Animation_ogw6h"),
+&"santo": SubResource("Animation_036oi")
+}
+
+[node name="Ovelha" type="CharacterBody2D" groups=["demonios"]]
+position = Vector2(282, 50)
+scale = Vector2(0.05, 0.05)
+script = ExtResource("1_ogw6h")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kohqg")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3.75, -1.25)
+shape = SubResource("RectangleShape2D_kohqg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_aswrh")
+}
+autoplay = "pecador"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_gom8l")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://tenp3pavho77"]
+
+[ext_resource type="Script" uid="uid://cl5r334knidjb" path="res://cenas/demonios.gd" id="1_ixwt4"]
+
+[node name="Demonios" type="Node" groups=["fogos"]]
+script = ExtResource("1_ixwt4")
+
+[node name="TimerDisparar" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="TimerOvelha" type="Timer" parent="." groups=["fogos"]]
+
+[node name="TimerDescida" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="TimerDisparar" to="." method="_on_timer_disparar_timeout"]
+[connection signal="timeout" from="TimerOvelha" to="." method="_on_timer_ovelha_timeout"]
+[connection signal="timeout" from="TimerDescida" to="." method="_on_timer_descida_timeout"]
