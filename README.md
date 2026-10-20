@@ -1,21 +1,21 @@
-# Space Invaders (tema Jesus x Demônios)
+# Space Invaders (Jesus vs. Demons theme)
 
-Clone do clássico Space Invaders feito em Godot Engine, com uma releitura temática: o jogador controla "Jesus", que se move na horizontal e atira cruzes para cima contra fileiras de demônios ("djabo") que descem e avançam lateralmente. Os demônios revidam atirando bolas de fogo contra o jogador. De tempos em tempos surge uma ovelha bônus que atravessa a tela e vale mais pontos que um demônio. Ao ser atingido por uma bola de fogo, o jogo muda para a tela de Game Over, com um botão para reiniciar a partida.
+A clone of the classic Space Invaders made in the Godot Engine, with a themed twist: the player controls "Jesus", who moves horizontally and shoots crosses upward at rows of demons ("djabo") that descend and advance sideways. The demons fight back by shooting fireballs at the player. Every so often a bonus sheep crosses the screen, worth more points than a demon. When hit by a fireball, the game switches to the Game Over screen, with a button to restart the match.
 
-## Mecânicas principais
+## Main mechanics
 
-- Movimento lateral do jogador com as setas/`ui_left`/`ui_right` e disparo com a barra de espaço (`shoot`), com um cooldown controlado por timer.
-- Grade de demônios que se move em bloco, desce periodicamente e dispara fogo aleatoriamente contra o jogador.
-- Ovelhas bônus que cruzam a tela em intervalos aleatórios.
-- Contagem de pontos: 100 pontos por demônio eliminado, 500 por ovelha.
-- Efeitos sonoros (tiro, explosão, invasor eliminado) e fonte no estilo Atari.
+- Sideways player movement with the arrow keys (`ui_left`/`ui_right`) and shooting with the space bar (`shoot`), with a timer-controlled cooldown.
+- A grid of demons that moves as a block, periodically moves down and randomly fires at the player.
+- Bonus sheep that cross the screen at random intervals.
+- Scoring: 100 points per demon killed, 500 per sheep.
+- Sound effects (shot, explosion, invader killed) and an Atari-style font.
 
-## Tecnologias
+## Technologies
 
 - Godot Engine 4.4 (GDScript)
-- Sprites e efeitos sonoros próprios (pasta `Sprites/` e `sfx/`)
+- Original sprites and sound effects (`Sprites/` and `sfx/` folders)
 
-## Como rodar
+## How to run
 
-1. Abrir a pasta do projeto no Godot Engine 4.4 (ou compatível).
-2. Rodar a cena principal `cenas/main.tscn` (definida como cena inicial no `project.godot`).
+1. Open the project folder in Godot Engine 4.4 (or a compatible version).
+2. Run the main scene `cenas/main.tscn` (set as the startup scene in `project.godot`).
